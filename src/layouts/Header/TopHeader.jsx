@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const TopHeader = () => {
   return (
-    <div className="w-full relative z-50 ">
+    <div className="w-full ">
       <section className="max-w-[1200px] mx-auto  px-4 py-2">
         <div className="flex justify-between items-center">
           <div className="w-full md:max-w-[750px]  overflow-hidden">

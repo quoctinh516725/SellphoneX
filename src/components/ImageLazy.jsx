@@ -18,13 +18,11 @@ const ImageLazy = ({
   return (
     <div
       ref={ref}
-      className={`relative w-full overflow-hidden ${radius}`}
-      style={{ minHeight: height }}
+      className={`relative w-full overflow-hidden ${radius} ${height}`}
     >
       {inView && !imageLoaded && (
         <div
-          className={`w-full ${radius} animate-pulse  bg-gray-200`}
-          style={{ height }}
+          className={`w-full ${radius} animate-pulse  bg-gray-200 ${height}`}
         />
       )}
 
@@ -35,9 +33,8 @@ const ImageLazy = ({
           loading="lazy"
           decoding="async"
           onLoad={() => setImageLoaded(true)}
-          style={{ height }}
           className={`
-              w-full ${radius} ${className}
+              w-full ${height} ${radius} ${className}
               transition-opacity duration-500
               ${imageLoaded ? "opacity-100" : "opacity-0 absolute"}
             `}

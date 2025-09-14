@@ -14,9 +14,9 @@ const Banner = () => {
     className: "cursor-pointer",
   };
   return (
-    <div className="w-full sm:w-[1200px] mx-auto mt-3">
-      <div className="flex gap-5">
-        <div className="w-2/3">
+    <div className="w-full sm:w-[1200px] mx-auto mt-3 px-4 sm:px-2">
+      <div className="flex flex-col sm:flex-row gap-5">
+        <div className="w-full sm:w-2/3">
           <Slider {...settings}>
             {assets.banner.map((item, idx) => (
               <div key={idx}>
@@ -25,18 +25,19 @@ const Banner = () => {
             ))}
           </Slider>
         </div>
-        <div className="w-1/3  flex flex-col items-center justify-center gap-3">
+        <div className="w-full sm:w-1/3  flex flex-row sm:flex-col items-center justify-center gap-3">
           {assets.subBanner.map((item, idx) => (
-            <img key={idx} className="w-full rounded-lg" src={item} alt="" />
+            <img
+              key={idx}
+              className="w-1/2 sm:w-full rounded-lg"
+              src={item}
+              alt=""
+            />
           ))}
         </div>
       </div>
       <div className="mt-3">
-        <img
-          className="w-full rounded-lg"
-          src={assets.specialBanner}
-          alt=""
-        />
+        <img className="w-full rounded-lg h-10 sm:h-24" src={assets.specialBanner} alt="" />
       </div>
     </div>
   );

@@ -7,12 +7,13 @@ const CardSale = ({ item, i }) => {
   return (
     <Reveal delay={(i % 6) * 0.04}>
       <div className="flex flex-col items-center justify-start p-2 rounded-xl bg-white">
-        <ImageLazy src={item.images} />
+        <ImageLazy src={item.images} height={"h-[200px] sm:h-[240px]"} />
 
-        <p className="w-full text-xl font-semibold mt-1 h-20 line-clamp-2">
-          {item.name}
+        <p className="w-full text-sm sm:text-[14px] font-semibold mt-1 min-h-10 line-clamp-2">
+          Chỉ áp dụng thanh toán online thành công — Mỗi SĐT chỉ được mua 1 sản
+          phẩm cùng loại
         </p>
-        <div className="w-full flex justify-start items-center gap-3">
+        <div className="w-full flex flex-col sm:flex-row justify-start sm:items-center sm:gap-3">
           <p className="text-primary  text-lg font-bold mt-1">
             {FormatPrice(item.price)}
           </p>

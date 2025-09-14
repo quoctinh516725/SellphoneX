@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
 import SectionTitle from "../../../components/SectionTitle";
-import { GlobalContext } from "../../../contexts/GlobalContext";
-import { CarouselProduct } from "../../../components/Carousel";
+import { CarouselComponent } from "../../../components/Carousel";
+import CardProduct from "../../../components/CardProduct";
 
 const ProductSection = ({ products, title, category, brands }) => {
   const filteredProducts = products
@@ -9,10 +8,13 @@ const ProductSection = ({ products, title, category, brands }) => {
     .slice(0, 5);
 
   return (
-    <div className="w-full sm:w-[1200px] mx-auto mt-10">
+    <div className="w-full sm:w-[1200px] mx-auto mt-10 px-4 sm:px-1">
       <SectionTitle title={title} brands={brands} />
       <div className="w-full mt-4 ">
-        <CarouselProduct items={filteredProducts} />
+        <CarouselComponent
+          items={filteredProducts}
+          cartItem={(item, index) => <CardProduct item={item} i={index} />}
+        />
       </div>
     </div>
   );

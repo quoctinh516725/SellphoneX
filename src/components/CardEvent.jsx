@@ -8,7 +8,7 @@ const CardEvent = ({ item, i }) => {
     <Reveal delay={(i % 6) * 0.04}>
       <div className="shadow-xl">
         <Link to={item.url}>
-          <ImageLazy src={item.banner} height={120} />
+          <ImageLazy src={item.banner} height={"h-[100px] sm:h-[120px]"} />
         </Link>
       </div>
     </Reveal>

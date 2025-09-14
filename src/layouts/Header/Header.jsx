@@ -1,18 +1,224 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Search from "../../components/Search";
 import Modal from "../../components/Modal";
 import Backdrop from "../../components/Backdrop";
 import TopHeader from "./TopHeader";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setBrandProduct,
+  setSearchKey,
+  setSelectedProduct,
+} from "../../features/products/products.slice";
+import { useGetCategoriesQuery } from "../../features/categories/categoryes.api";
+
+const subCategories = {
+  1: {
+    categoryId: 1, // Điện thoại
+    subCategory: [
+      {
+        id: "1-0",
+        label: "Thương hiệu thiết bị",
+        options: [
+          { id: "1-0-0", label: "Apple", value: "apple" },
+          { id: "1-0-1", label: "Samsung", value: "samsung" },
+          { id: "1-0-2", label: "Xiaomi", value: "xiaomi" },
+          { id: "1-0-3", label: "Oppo", value: "oppo" },
+          { id: "1-0-4", label: "Realme", value: "realme" },
+          { id: "1-0-5", label: "Vivo", value: "vivo" },
+          { id: "1-0-6", label: "Nokia", value: "nokia" },
+        ],
+      },
+      {
+        id: "1-1",
+        label: "Mức giá",
+        options: [
+          { id: "1-1-0", label: "Dưới 2 triệu", value: [0, 2000000] },
+          { id: "1-1-1", label: "2 - 4 triệu", value: [2000000, 4000000] },
+          { id: "1-1-2", label: "4 - 7 triệu", value: [4000000, 7000000] },
+          { id: "1-1-3", label: "7 - 13 triệu", value: [7000000, 13000000] },
+          { id: "1-1-4", label: "13 - 20 triệu", value: [13000000, 20000000] },
+          { id: "1-1-5", label: "Trên 20 triệu", value: [20000000, Infinity] },
+        ],
+      },
+      {
+        id: "1-2",
+        label: "Nhu cầu sử dụng",
+        options: [
+          { id: "1-2-0", label: "Chụp hình đẹp", value: "camera" },
+          { id: "1-2-1", label: "Chơi game / Cấu hình cao", value: "gaming" },
+          { id: "1-2-2", label: "Pin khủng trên 5000 mAh", value: "pin" },
+        ],
+      },
+    ],
+  },
+  2: {
+    categoryId: 2, // Tablet
+    subCategory: [
+      {
+        id: "2-0",
+        label: "Thương hiệu thiết bị",
+        options: [
+          { id: "2-0-0", label: "Apple (iPad)", value: "apple" },
+          { id: "2-0-1", label: "Samsung", value: "samsung" },
+          { id: "2-0-2", label: "Xiaomi", value: "xiaomi" },
+          { id: "2-0-3", label: "Lenovo", value: "lenovo" },
+          { id: "2-0-4", label: "Huawei", value: "huawei" },
+        ],
+      },
+      {
+        id: "2-1",
+        label: "Mức giá",
+        options: [
+          { id: "2-1-0", label: "Dưới 5 triệu", value: [0, 5000000] },
+          { id: "2-1-1", label: "5 - 10 triệu", value: [5000000, 10000000] },
+          { id: "2-1-2", label: "10 - 15 triệu", value: [10000000, 15000000] },
+          { id: "2-1-3", label: "Trên 15 triệu", value: [15000000, Infinity] },
+        ],
+      },
+      {
+        id: "2-2",
+        label: "Nhu cầu sử dụng",
+        options: [
+          { id: "2-2-0", label: "Chơi game / Cấu hình cao", value: "gaming" },
+          { id: "2-2-1", label: "Nghe nhạc", value: "music" },
+          { id: "2-2-2", label: "Học tập", value: "study" },
+          { id: "2-2-3", label: "Vẽ / Ghi chú bằng bút", value: "writing" },
+        ],
+      },
+    ],
+  },
+  3: {
+    categoryId: 3, // Laptop
+    subCategory: [
+      {
+        id: "3-0",
+        label: "Thương hiệu thiết bị",
+        options: [
+          { id: "3-0-0", label: "Apple", value: "apple" },
+          { id: "3-0-1", label: "Dell", value: "dell" },
+          { id: "3-0-2", label: "HP", value: "hp" },
+          { id: "3-0-3", label: "Asus", value: "asus" },
+          { id: "3-0-4", label: "Lenovo", value: "lenovo" },
+          { id: "3-0-5", label: "MSI", value: "msi" },
+          { id: "3-0-6", label: "Acer", value: "acer" },
+        ],
+      },
+      {
+        id: "3-1",
+        label: "Mức giá",
+        options: [
+          { id: "3-1-0", label: "Dưới 10 triệu", value: [0, 10000000] },
+          { id: "3-1-1", label: "10 - 15 triệu", value: [10000000, 15000000] },
+          { id: "3-1-2", label: "15 - 20 triệu", value: [15000000, 20000000] },
+          { id: "3-1-3", label: "20 - 30 triệu", value: [20000000, 30000000] },
+          { id: "3-1-4", label: "Trên 30 triệu", value: [30000000, Infinity] },
+        ],
+      },
+      {
+        id: "3-2",
+        label: "Nhu cầu sử dụng",
+        options: [
+          { id: "3-2-0", label: "Học tập - Văn phòng", value: "office" },
+          { id: "3-2-1", label: "Đồ hoạ - Thiết kế", value: "design" },
+          { id: "3-2-2", label: "Gaming", value: "gaming" },
+          { id: "3-2-3", label: "Mỏng nhẹ - Thời trang", value: "thin-light" },
+        ],
+      },
+    ],
+  },
+  4: {
+    categoryId: 4, // Đồng hồ
+    subCategory: [
+      {
+        id: "4-0",
+        label: "Thương hiệu thiết bị",
+        options: [
+          { id: "4-0-0", label: "Apple Watch", value: "apple" },
+          { id: "4-0-1", label: "Samsung", value: "samsung" },
+          { id: "4-0-2", label: "Garmin", value: "garmin" },
+          { id: "4-0-3", label: "Huawei", value: "huawei" },
+          { id: "4-0-4", label: "Xiaomi", value: "xiaomi" },
+        ],
+      },
+      {
+        id: "4-1",
+        label: "Mức giá",
+        options: [
+          { id: "4-1-0", label: "Dưới 2 triệu", value: [0, 2000000] },
+          { id: "4-1-1", label: "2 - 5 triệu", value: [2000000, 5000000] },
+          { id: "4-1-2", label: "5 - 10 triệu", value: [5000000, 10000000] },
+          { id: "4-1-3", label: "Trên 10 triệu", value: [10000000, Infinity] },
+        ],
+      },
+      {
+        id: "4-2",
+        label: "Nhu cầu sử dụng",
+        options: [
+          { id: "4-2-0", label: "Thời trang", value: "fashion" },
+          { id: "4-2-1", label: "Theo dõi sức khoẻ", value: "health" },
+          { id: "4-2-2", label: "Thể thao - GPS", value: "sport" },
+          { id: "4-2-3", label: "Nghe gọi / Thông báo", value: "notification" },
+        ],
+      },
+    ],
+  },
+  5: {
+    categoryId: 5, // Tai nghe
+    subCategory: [
+      {
+        id: "5-0",
+        label: "Thương hiệu thiết bị",
+        options: [
+          { id: "5-0-0", label: "Apple (AirPods)", value: "apple" },
+          { id: "5-0-1", label: "Sony", value: "sony" },
+          { id: "5-0-2", label: "Samsung", value: "samsung" },
+          { id: "5-0-3", label: "JBL", value: "jbl" },
+          { id: "5-0-4", label: "Sennheiser", value: "sennheiser" },
+          { id: "5-0-5", label: "Razer", value: "razer" },
+        ],
+      },
+      {
+        id: "5-1",
+        label: "Mức giá",
+        options: [
+          { id: "5-1-0", label: "Dưới 1 triệu", value: [0, 1000000] },
+          { id: "5-1-1", label: "1 - 2 triệu", value: [1000000, 2000000] },
+          { id: "5-1-2", label: "2 - 5 triệu", value: [2000000, 5000000] },
+          { id: "5-1-3", label: "Trên 5 triệu", value: [5000000, Infinity] },
+        ],
+      },
+      {
+        id: "5-2",
+        label: "Nhu cầu sử dụng",
+        options: [
+          { id: "5-2-0", label: "Nghe nhạc", value: "music" },
+          { id: "5-2-1", label: "Gaming", value: "gaming" },
+          { id: "5-2-2", label: "Chống ồn chủ động (ANC)", value: "anc" },
+          { id: "5-2-3", label: "Thể thao / Chạy bộ", value: "sport" },
+        ],
+      },
+    ],
+  },
+};
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const { selectedProduct, priceRange, useProduct, searchKey, brandProduct } =
+    useSelector((store) => store.products);
+
+  const { data: categories, isLoading } = useGetCategoriesQuery();
+
   const [isOpen, setIsOpen] = useState({
     category: false,
     user: false,
+    subCategories: false,
   });
+  const [categoryId, setCategoryId] = useState();
   const [search, setSearch] = useState("");
-
   // Check
   const isLogin = true;
 
@@ -37,6 +243,7 @@ const Header = () => {
     setIsOpen({
       category: false,
       user: false,
+      subCategories: false,
     });
   }
 
@@ -45,10 +252,10 @@ const Header = () => {
   }
 
   return (
-    <div className="bg-[linear-gradient(180deg,#e45464_13%,#d70018)]">
-      <TopHeader />
-      <header className="max-w-[1200px] mx-auto sticky top-0 z-50 ">
-        <section className=" w-full   flex justify-between items-center px-2 sm:px-4 py-2 pb-4 gap-4">
+    <>
+      <header className="bg-[linear-gradient(180deg,#e45464_13%,#d70018)] sticky -top-6 z-50">
+        <TopHeader />
+        <section className=" max-w-[1200px] mx-auto  flex justify-between items-center px-2 sm:px-4 py-2 pb-4 gap-4">
           {/* Logo */}
           <div>
             <Link className="flex items-center " to="/">
@@ -69,6 +276,9 @@ const Header = () => {
               placeholder={"Bạn muốn mua gì?"}
               name={"search"}
               value={search}
+              onKeyDown={(e) => {
+                e.key === "Enter" && dispatch(setSearchKey(search));
+              }}
               onChange={handleSearch}
               className={"sm:w-96 w-full"}
             />{" "}
@@ -113,107 +323,71 @@ const Header = () => {
                 </svg>
               </Button>
 
-              <Modal isOpen={isOpen.category} onClose={handleClose}>
+              <Modal isOpen={isOpen.category}>
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6"
+                  {categories?.map((item, index) => (
+                    <div
+                      className="relative flex items-center gap-2 cursor-pointer "
+                      onMouseEnter={() => {
+                        setCategoryId(item.id);
+                        setIsOpen({
+                          ...isOpen,
+                          subCategories: true,
+                        });
+                      }}
+                      onClick={() => {
+                        dispatch(setSelectedProduct(item.name));
+                        navigate("/products");
+                        handleClose();
+                      }}
+                      key={item.id}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
-                      />
-                    </svg>
-                    <span className="text-sm">Điện thoại</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6 ml-auto -rotate-90 text-gray-500"
+                      <img className="w-10" src={item.img} alt="" />
+                      <span className="text-sm">{item.label}</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6 ml-auto -rotate-90 text-gray-500"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    </div>
+                  ))}
+                </div>
+              </Modal>
+              <Modal
+                isOpen={isOpen.subCategories}
+                className={"left-76 min-w-[650px]"}
+              >
+                <div className=" grid grid-cols-3 gap-4">
+                  {subCategories[categoryId]?.subCategory?.map((item) => (
+                    <div
+                      className="flex flex-col gap-3 cursor-pointer "
+                      key={item.id}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M10.5 19.5h3m-6.75 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-15a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 4.5v15a2.25 2.25 0 0 0 2.25 2.25Z"
-                      />
-                    </svg>
-
-                    <span className="text-sm">Máy tính bảng</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6 ml-auto -rotate-90 text-gray-500"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <img className="size-6" src="/laptop-icon.svg" alt="" />
-                    <span className="text-sm">Laptop</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6 ml-auto -rotate-90 text-gray-500"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex items-center gap-2 cursor-pointer">
-                    <img className="size-6" src="/watch-icon.svg" alt="" />
-                    <span className="text-sm">Đồng hồ</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="size-6 ml-auto -rotate-90 text-gray-500"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
-                  </div>
+                      <h5 className="text-sm font-bold  mb-2">{item.label}</h5>
+                      {item.options.map((item) => (
+                        <span
+                          className="text-sm text-gray-500 cursor-pointer hover:font-semibold"
+                          key={item.id}
+                          onClick={() => {
+                            dispatch(setBrandProduct(item.value));
+                            navigate("/products");
+                            handleClose();
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                      ))}
+                    </div>
+                  ))}
                 </div>
               </Modal>
             </div>
@@ -322,7 +496,7 @@ const Header = () => {
         </section>
       </header>
       <Backdrop isOpen={isOpen.category || isOpen.user} onClose={handleClose} />
-    </div>
+    </>
   );
 };
 

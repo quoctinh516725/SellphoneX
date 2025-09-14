@@ -1,12 +1,11 @@
 import Banner from "./sections/Banner";
 import Filter from "./sections/Filter";
 import SaleSection from "./sections/SaleSection";
-import Blog from "./sections/Blog";
 import { useGetProductsQuery } from "../../features/products/products.api";
 import ProductSection from "./sections/ProductSection";
-import { data } from "react-router-dom";
 import EventBanner from "./sections/EventBanner";
 import { assets } from "../../assets";
+import BlogSection from "./sections/BlogSection";
 
 const Home = () => {
   const { data: products = [] } = useGetProductsQuery();
@@ -71,7 +70,8 @@ const Home = () => {
         items={assets.brandBanner}
         title={"Chuyên trang thương hiệu"}
       />
-      <EventBanner items={assets.blogBanner} title={"Tin công nghệ"} />
+      <BlogSection items={assets.blogBanner} title={"Tin công nghệ"} />
+    
     </>
   );
 };

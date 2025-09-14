@@ -26,6 +26,20 @@ body {
   }
 }
 
+@keyframes textStroke {
+  0% {
+    color: white;
+  }
+  100% {
+    color: red;
+    -webkit-text-stroke: 1px white;
+  }
+}
+
+.animate-text-stroke {
+  animation: textStroke 1s ease-in-out infinite;
+}
+
 .animate-marquee {
   animation: marquee 20s linear infinite;
 }

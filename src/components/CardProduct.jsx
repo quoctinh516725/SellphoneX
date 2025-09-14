@@ -7,52 +7,56 @@ const CardProduct = ({ item, i }) => {
     <div>
       <Reveal delay={(i % 6) * 0.04}>
         <div className="relative flex flex-col items-center p-2 rounded-xl bg-white shadow-xl ">
-          <div className="absolute -top-1 left-3">
+          <div className="absolute -top-1 left-2">
             <div className="relative">
               <img
-                className="w-28"
+                className="w-20 sm:w-24"
                 src="/cart-product-icon-discount.webp"
                 alt=""
               />
-              <span className="text-nowrap absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-sm text-white">
-                Giảm <span className="font-bold text-lg">{item.discount}%</span>
+              <span className="text-xs  text-nowrap absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-white">
+                Giảm{" "}
+                <span className="font-bold text-[12px] sm:text-sm">
+                  {item.discount}%
+                </span>
               </span>
             </div>
           </div>
           <div className="absolute top-1 -right-2">
             <div className="relative">
               <img
-                className="w-24"
+                className="w-18 sm:w-20"
                 src="/cart-product-icon-right.webp"
                 alt=""
               />
-              <span className="text-nowrap absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-sm text-blue-500">
-                Trả góp <span className="font-bold text-lg">0%</span>
+              <span className="text-xs sm:text-[12px] text-nowrap absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-blue-500">
+                Trả góp{" "}
+                <span className="font-bold text-[12px] sm:text-sm">0%</span>
               </span>
             </div>
           </div>
-          <div className="w-full mt-5">
-            <ImageLazy src={item.images} />
+          <div className="w-full mt-8">
+            <ImageLazy src={item.images} height={"h-[180px] sm:h-[200px]"} />
           </div>
 
-          <p className="w-full text-xl font-semibold mt-1 h-14 line-clamp-2">
+          <p className="w-full text-sm sm:text-[14px] font-semibold mt-1  min-h-[40px] line-clamp-2">
             {item.name}
           </p>
-          <div className="w-full flex justify-start items-center gap-3">
-            <p className="text-primary  text-lg font-bold mt-1">
+          <div className="w-full flex flex-col sm:flex-row justify-start sm:items-center sm:gap-2">
+            <p className="text-primary  sm:text-lg font-bold mt-1">
               {FormatPrice(item.price)}
             </p>
-            <p className="text-gray-400 line-through text-sm  mt-1">
+            <p className="text-gray-400 line-through text-xs sm:text-sm  mt-1">
               {FormatPrice(item.price_sale)}
             </p>
           </div>
           <div className="w-full bg-[#efe9fe] p-1 rounded-sm mt-1">
-            <p className="text-sm text-[#421d95] font-semibold">
+            <p className="text-[9px] sm:text-xs text-[#421d95] font-semibold">
               S-Student giảm thêm 300.000đ
             </p>
           </div>
           <div className="w-full bg-gray-100 p-1 rounded-sm mt-2">
-            <p className=" text-black line-clamp-2">
+            <p className="text-[11px] sm:text-xs text-black line-clamp-2">
               Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng kỳ hạn 3-6
               tháng
             </p>
@@ -89,7 +93,9 @@ const CardProduct = ({ item, i }) => {
                 />
               </svg>
 
-              <p className="text-xl text-blue-500 font-semibold">Yêu thích</p>
+              <p className="text-sm sm:text-[14px] text-blue-500 font-semibold">
+                Yêu thích
+              </p>
             </div>
           </div>
         </div>

@@ -2,6 +2,12 @@ import banner1 from "./banner1.webp";
 import banner2 from "./banner2.png";
 import banner3 from "./banner3.png";
 import banner4 from "./banner4.png";
+import bannerProduct1 from "./bannerProduct1.webp";
+import bannerProduct2 from "./bannerProduct2.webp";
+import bannerProduct3 from "./bannerProduct3.webp";
+import bannerProduct4 from "./bannerProduct4.webp";
+import bannerProduct5 from "./bannerProduct5.webp";
+import bannerProduct6 from "./bannerProduct6.webp";
 import specialBanner from "./special-banner.gif";
 import productImg1 from "./productImg.webp";
 import productImg2 from "./productImg1.webp";
@@ -18,11 +24,56 @@ import StudentBanner from "./student-banner.png";
 import BankBanner from "./bank-banner.webp";
 import BrandBanner from "./brand-banner.webp";
 import BlogBanner from "./blog-banner.jpg";
+import brand1 from "./frame_1.png";
+import brand2 from "./frame_2.png";
+import brand3 from "./frame_3.png";
+import brand4 from "./frame_4.png";
+import brand5 from "./frame_5.png";
+import brand6 from "./frame_6.png";
+import brand7 from "./frame_7.png";
+import brand8 from "./frame_8.png";
+import brand9 from "./frame_9.png";
+import brand10 from "./frame_10.png";
+import brand11 from "./frame_11.png";
+import brand12 from "./frame_12.png";
+import brand13 from "./frame_13.png";
+import brand14 from "./frame_14.png";
+
+import phoneGaming from "./phone-gaming.png";
+import phone5g from "./phone-5g.png";
+import phoneCamera from "./phone-camera.png";
+import phoneFold from "./phone-fold.png";
+import phoneNokia from "./phone-nokia.webp";
+import phonePin from "./phone-pin.png";
 
 import laptop from "./laptopImg1.webp";
 
 export const assets = {
   banner: [banner1, banner2, banner3, banner4],
+  bannerProducts: [
+    bannerProduct1,
+    bannerProduct2,
+    bannerProduct3,
+    bannerProduct4,
+    bannerProduct5,
+    bannerProduct6,
+  ],
+  brands: [
+    { name: "apple", img: brand1 },
+    { name: "samsung", img: brand2 },
+    { name: "xiaomi", img: brand3 },
+    { name: "oppo", img: brand4 },
+    { name: "realme", img: brand5 },
+    { name: "vivo", img: brand6 },
+    { name: "nokia", img: brand7 },
+    { name: "asus", img: brand8 },
+    { name: "dell", img: brand9 },
+    { name: "hp", img: brand10 },
+    { name: "msi", img: brand11 },
+    { name: "acer", img: brand12 },
+    { name: "huawei", img: brand13 },
+    { name: "garmin", img: brand14 },
+  ],
   subBanner: [banner1, banner2],
   specialBanner: specialBanner,
   products: [
@@ -378,6 +429,14 @@ export const assets = {
       status: "active",
     },
   ],
+  phoneFeatures: [
+    { label: "Điện thoại 5G", img: phone5g, value: "5g" },
+    { label: "Điện thoại chụp ảnh", img: phoneCamera, value: "camera" },
+    { label: "Điện thoại gập", img: phoneFold, value: "fold" },
+    { label: "Điện thoại chơi game", img: phoneGaming, value: "gaming" },
+    { label: "Điện thoại Nokia", img: phoneNokia, value: "nokia" },
+    { label: "Điện thoại pin trâu", img: phonePin, value: "pin" },
+  ],
   studentBanner: [
     { banner: StudentBanner, url: "#" },
     { banner: StudentBanner, url: "#" },
@@ -385,7 +444,25 @@ export const assets = {
     { banner: StudentBanner, url: "#" },
     { banner: StudentBanner, url: "#" },
   ],
-  bankBanner: [{ banner: BankBanner, url: "#" }],
-  brandBanner: [{ banner: BrandBanner, url: "#" }],
-  blogBanner: [{ banner: BlogBanner, url: "#" }],
+  bankBanner: [
+    {
+      banner: BankBanner,
+      url: "#",
+      name: "Dreame T60 Ultra ra mắt: Máy lau sàn với body ultra-slim siêu mỏng, trang bị 2 tay gạt AI, lực hút 25,000Pa",
+    },
+  ],
+  brandBanner: [
+    {
+      banner: BrandBanner,
+      url: "#",
+      name: "Dreame T60 Ultra ra mắt: Máy lau sàn với body ultra-slim siêu mỏng, trang bị 2 tay gạt AI, lực hút 25,000Pa",
+    },
+  ],
+  blogBanner: [
+    {
+      banner: BlogBanner,
+      url: "#",
+      name: "Dreame T60 Ultra ra mắt: Máy lau sàn với body ultra-slim siêu mỏng, trang bị 2 tay gạt AI, lực hút 25,000Pa",
+    },
+  ],
 };
