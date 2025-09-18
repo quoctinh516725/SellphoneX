@@ -3,11 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const productSlice = createSlice({
   name: "products",
   initialState: {
-    selectedProduct: "",
+    selectedProduct: localStorage.getItem("selectedProduct") || "",
     brandProduct: "",
     priceRange: [0, 100000000],
     useProduct: "",
     searchKey: "",
+    sortProduct: "rate",
   },
   reducers: {
     setSelectedProduct: (state, action) => {
@@ -25,11 +26,14 @@ const productSlice = createSlice({
     setBrandProduct: (state, action) => {
       state.brandProduct = action.payload;
     },
+    setSortProduct: (state, action) => {
+      state.sortProduct = action.payload;
+    },
     resetFilters: (state) => {
-      state.selectedProduct = "";
       state.priceRange = [0, 100000000];
       state.useProduct = "";
       state.searchKey = "";
+      state.brandProduct = "";
     },
   },
 });
@@ -40,6 +44,7 @@ export const {
   setUseProduct,
   setSearchKey,
   setBrandProduct,
+  setSortProduct,
   resetFilters,
 } = productSlice.actions;
 export default productSlice.reducer;

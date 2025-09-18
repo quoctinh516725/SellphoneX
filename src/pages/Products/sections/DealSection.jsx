@@ -7,7 +7,7 @@ const DealSection = ({ products }) => {
     <div className="py-4 bg-[linear-gradient(rgb(248,62,96),rgb(254,80,72))] rounded-2xl mt-5">
       <div className="flex flex-col sm:flex-row justify-between items-center">
         <img src="/hot-sale.gif" className="w-1/2" alt="" />
-        <div className="text-sm sm:text-2xl font-bold text-white flex flex-col sm:flex-row items-center gap-2 mt-3 sm:mt-0">
+        <div className="text-sm sm:text-2xl font-bold text-white flex flex-col sm:flex-row items-center gap-2 mt-3 sm:mt-0 px-2">
           <span className="text-xl sm:text-xl font-bold text-white">
             KẾT THÚC SAU:
           </span>

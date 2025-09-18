@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import { assets } from "../../../assets";
 
 var settings = {
-  dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 2,
@@ -24,11 +23,11 @@ var settings = {
   ],
 };
 
-const Banner = () => {
+const Banner = ({ banners }) => {
   return (
     <div className="w-full mb-10">
       <Slider {...settings}>
-        {assets.bannerProducts.map((item, idx) => (
+        {banners.map((item, idx) => (
           <div key={idx} className="px-2 sm:px-3">
             <img
               className="w-full h-20 rounded-lg shadow-[1px_1px_10px_gray] "

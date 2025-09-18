@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Breadcrumbs = ({ paths }) => {
+const Breadcrumbs = ({ breadcrumbs }) => {
   return (
     <div className=" p-4">
       <div className="flex items-center gap-2">
-        {paths.map((item, idx) => (
+        {breadcrumbs.map((item, idx) => (
           <Link
             key={idx}
             to={item.path}
@@ -30,7 +30,7 @@ const Breadcrumbs = ({ paths }) => {
             <span className="text-xs font-semibold text-gray-500 ">
               {item.name}
             </span>
-            {idx !== paths.length - 1 && (
+            {idx !== breadcrumbs.length - 1 && (
               <span className="text-xs font-semibold text-gray-500">/</span>
             )}
           </Link>

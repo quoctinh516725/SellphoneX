@@ -8,18 +8,22 @@ import TopHeader from "./TopHeader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setBrandProduct,
+  setPriceRange,
   setSearchKey,
   setSelectedProduct,
+  setUseProduct,
 } from "../../features/products/products.slice";
 import { useGetCategoriesQuery } from "../../features/categories/categoryes.api";
 
-const subCategories = {
-  1: {
-    categoryId: 1, // Điện thoại
+const subCategories = [
+  {
+    id: "64xxx",
+    categoryId: 1,
     subCategory: [
       {
         id: "1-0",
         label: "Thương hiệu thiết bị",
+        type: "brand",
         options: [
           { id: "1-0-0", label: "Apple", value: "apple" },
           { id: "1-0-1", label: "Samsung", value: "samsung" },
@@ -33,6 +37,7 @@ const subCategories = {
       {
         id: "1-1",
         label: "Mức giá",
+        type: "price",
         options: [
           { id: "1-1-0", label: "Dưới 2 triệu", value: [0, 2000000] },
           { id: "1-1-1", label: "2 - 4 triệu", value: [2000000, 4000000] },
@@ -45,6 +50,7 @@ const subCategories = {
       {
         id: "1-2",
         label: "Nhu cầu sử dụng",
+        type: "use",
         options: [
           { id: "1-2-0", label: "Chụp hình đẹp", value: "camera" },
           { id: "1-2-1", label: "Chơi game / Cấu hình cao", value: "gaming" },
@@ -53,12 +59,15 @@ const subCategories = {
       },
     ],
   },
-  2: {
-    categoryId: 2, // Tablet
+  {
+    id: "65xxx",
+    categoryId: 2,
     subCategory: [
       {
         id: "2-0",
+
         label: "Thương hiệu thiết bị",
+        type: "brand",
         options: [
           { id: "2-0-0", label: "Apple (iPad)", value: "apple" },
           { id: "2-0-1", label: "Samsung", value: "samsung" },
@@ -70,6 +79,7 @@ const subCategories = {
       {
         id: "2-1",
         label: "Mức giá",
+        type: "price",
         options: [
           { id: "2-1-0", label: "Dưới 5 triệu", value: [0, 5000000] },
           { id: "2-1-1", label: "5 - 10 triệu", value: [5000000, 10000000] },
@@ -80,6 +90,7 @@ const subCategories = {
       {
         id: "2-2",
         label: "Nhu cầu sử dụng",
+        type: "use",
         options: [
           { id: "2-2-0", label: "Chơi game / Cấu hình cao", value: "gaming" },
           { id: "2-2-1", label: "Nghe nhạc", value: "music" },
@@ -89,12 +100,14 @@ const subCategories = {
       },
     ],
   },
-  3: {
-    categoryId: 3, // Laptop
+  {
+    id: "64xxx",
+    categoryId: 3,
     subCategory: [
       {
         id: "3-0",
         label: "Thương hiệu thiết bị",
+        type: "brand",
         options: [
           { id: "3-0-0", label: "Apple", value: "apple" },
           { id: "3-0-1", label: "Dell", value: "dell" },
@@ -108,6 +121,7 @@ const subCategories = {
       {
         id: "3-1",
         label: "Mức giá",
+        type: "price",
         options: [
           { id: "3-1-0", label: "Dưới 10 triệu", value: [0, 10000000] },
           { id: "3-1-1", label: "10 - 15 triệu", value: [10000000, 15000000] },
@@ -119,6 +133,7 @@ const subCategories = {
       {
         id: "3-2",
         label: "Nhu cầu sử dụng",
+        type: "use",
         options: [
           { id: "3-2-0", label: "Học tập - Văn phòng", value: "office" },
           { id: "3-2-1", label: "Đồ hoạ - Thiết kế", value: "design" },
@@ -128,12 +143,15 @@ const subCategories = {
       },
     ],
   },
-  4: {
-    categoryId: 4, // Đồng hồ
+  {
+    id: "64xxx",
+    categoryId: 4,
     subCategory: [
       {
         id: "4-0",
+
         label: "Thương hiệu thiết bị",
+        type: "brand",
         options: [
           { id: "4-0-0", label: "Apple Watch", value: "apple" },
           { id: "4-0-1", label: "Samsung", value: "samsung" },
@@ -145,6 +163,7 @@ const subCategories = {
       {
         id: "4-1",
         label: "Mức giá",
+        type: "price",
         options: [
           { id: "4-1-0", label: "Dưới 2 triệu", value: [0, 2000000] },
           { id: "4-1-1", label: "2 - 5 triệu", value: [2000000, 5000000] },
@@ -155,6 +174,7 @@ const subCategories = {
       {
         id: "4-2",
         label: "Nhu cầu sử dụng",
+        type: "use",
         options: [
           { id: "4-2-0", label: "Thời trang", value: "fashion" },
           { id: "4-2-1", label: "Theo dõi sức khoẻ", value: "health" },
@@ -164,12 +184,15 @@ const subCategories = {
       },
     ],
   },
-  5: {
-    categoryId: 5, // Tai nghe
+  {
+    id: "64xxx",
+    categoryId: 5,
     subCategory: [
       {
         id: "5-0",
+
         label: "Thương hiệu thiết bị",
+        type: "brand",
         options: [
           { id: "5-0-0", label: "Apple (AirPods)", value: "apple" },
           { id: "5-0-1", label: "Sony", value: "sony" },
@@ -182,6 +205,7 @@ const subCategories = {
       {
         id: "5-1",
         label: "Mức giá",
+        type: "price",
         options: [
           { id: "5-1-0", label: "Dưới 1 triệu", value: [0, 1000000] },
           { id: "5-1-1", label: "1 - 2 triệu", value: [1000000, 2000000] },
@@ -192,6 +216,7 @@ const subCategories = {
       {
         id: "5-2",
         label: "Nhu cầu sử dụng",
+        type: "use",
         options: [
           { id: "5-2-0", label: "Nghe nhạc", value: "music" },
           { id: "5-2-1", label: "Gaming", value: "gaming" },
@@ -201,14 +226,12 @@ const subCategories = {
       },
     ],
   },
-};
+];
 
 const Header = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { selectedProduct, priceRange, useProduct, searchKey, brandProduct } =
-    useSelector((store) => store.products);
 
   const { data: categories, isLoading } = useGetCategoriesQuery();
 
@@ -217,7 +240,7 @@ const Header = () => {
     user: false,
     subCategories: false,
   });
-  const [categoryId, setCategoryId] = useState();
+  const [categoryId, setCategoryId] = useState(1);
   const [search, setSearch] = useState("");
   // Check
   const isLogin = true;
@@ -251,6 +274,26 @@ const Header = () => {
     setSearch(e.target.value);
   }
 
+  function handleFilterSubcategory(item, type) {
+    const category = categories?.find((cate) => cate.id === categoryId);
+    switch (type) {
+      case "price":
+        dispatch(setPriceRange(item.value));
+        break;
+      case "use":
+        dispatch(setUseProduct(item.value));
+        break;
+      case "brand":
+        dispatch(setBrandProduct(item.value));
+        break;
+      default:
+        break;
+    }
+    dispatch(setSelectedProduct(category.name));
+    navigate("/products");
+    handleClose();
+  }
+
   return (
     <>
       <header className="bg-[linear-gradient(180deg,#e45464_13%,#d70018)] sticky -top-6 z-50">
@@ -277,7 +320,11 @@ const Header = () => {
               name={"search"}
               value={search}
               onKeyDown={(e) => {
-                e.key === "Enter" && dispatch(setSearchKey(search));
+                if (e.key === "Enter") {
+                  dispatch(setSearchKey(search));
+                  navigate("/products");
+                  handleClose();
+                }
               }}
               onChange={handleSearch}
               className={"sm:w-96 w-full"}
@@ -367,27 +414,27 @@ const Header = () => {
                 className={"left-76 min-w-[650px]"}
               >
                 <div className=" grid grid-cols-3 gap-4">
-                  {subCategories[categoryId]?.subCategory?.map((item) => (
-                    <div
-                      className="flex flex-col gap-3 cursor-pointer "
-                      key={item.id}
-                    >
-                      <h5 className="text-sm font-bold  mb-2">{item.label}</h5>
-                      {item.options.map((item) => (
-                        <span
-                          className="text-sm text-gray-500 cursor-pointer hover:font-semibold"
-                          key={item.id}
-                          onClick={() => {
-                            dispatch(setBrandProduct(item.value));
-                            navigate("/products");
-                            handleClose();
-                          }}
-                        >
-                          {item.label}
-                        </span>
-                      ))}
-                    </div>
-                  ))}
+                  {subCategories
+                    ?.find((sub) => sub.categoryId === categoryId)
+                    ?.subCategory?.map((sub) => (
+                      <div
+                        className="flex flex-col gap-3 cursor-pointer "
+                        key={sub.id}
+                      >
+                        <h5 className="text-sm font-bold  mb-2">{sub.label}</h5>
+                        {sub.options.map((item) => (
+                          <span
+                            className="text-sm text-gray-500 cursor-pointer hover:font-semibold"
+                            key={item.id}
+                            onClick={() =>
+                              handleFilterSubcategory(item, sub.type)
+                            }
+                          >
+                            {item.label}
+                          </span>
+                        ))}
+                      </div>
+                    ))}
                 </div>
               </Modal>
             </div>

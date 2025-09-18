@@ -1,6 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setBrandProduct } from "../../../features/products/products.slice";
 
-const BrandSection = ({ brands, title, onClick = () => {} }) => {
+const BrandSection = ({ brands, title }) => {
+  const dispatch = useDispatch();
   return (
     <div className="mt-3">
       <h5 className="text-lg font-bold">{title}</h5>
@@ -10,7 +13,7 @@ const BrandSection = ({ brands, title, onClick = () => {} }) => {
             <div
               key={idx}
               className="sm:w-full flex-shrink-0 sm:flex-shrink border border-gray-300 flex items-center justify-center  p-1 cursor-pointer"
-              onClick={onClick}
+              onClick={() => dispatch(setBrandProduct(item.name))}
             >
               <img className="w-20" src={item.img} alt="" />
             </div>

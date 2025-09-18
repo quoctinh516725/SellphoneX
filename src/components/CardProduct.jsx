@@ -1,6 +1,7 @@
 import { FormatPrice } from "../utils/FormatPrice";
 import Reveal from "./Reveal";
 import ImageLazy from "./ImageLazy";
+import FormatRate from "../utils/FormatRate";
 
 const CardProduct = ({ item, i }) => {
   return (
@@ -75,7 +76,9 @@ const CardProduct = ({ item, i }) => {
                   clipRule="evenodd"
                 />
               </svg>
-              <p className="text-xl text-black font-semibold">{item.rate}</p>
+              <p className="text-lg text-black font-semibold">
+                {FormatRate(item.rate)}
+              </p>
             </div>
             <div className="flex items-center gap-1">
               <svg
