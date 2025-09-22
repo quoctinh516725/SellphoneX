@@ -2,11 +2,12 @@ import { FormatPrice } from "../utils/FormatPrice";
 import Reveal from "./Reveal";
 import ImageLazy from "./ImageLazy";
 import FormatRate from "../utils/FormatRate";
+import { Link } from "react-router-dom";
 
 const CardProduct = ({ item, i }) => {
   return (
-    <div>
-      <Reveal delay={(i % 6) * 0.04}>
+    <Reveal delay={(i % 6) * 0.04}>
+      <Link to={`/products/${item.id}`}>
         <div className="relative flex flex-col items-center p-2 rounded-xl bg-white shadow-xl ">
           <div className="absolute -top-1 left-2">
             <div className="relative">
@@ -101,9 +102,9 @@ const CardProduct = ({ item, i }) => {
               </p>
             </div>
           </div>
-        </div>
-      </Reveal>
-    </div>
+        </div>{" "}
+      </Link>
+    </Reveal>
   );
 };
 

@@ -26,7 +26,7 @@ const CustomLeftArrow = ({ onClick }) => {
       onClick={onClick}
       className="absolute hidden sm:block left-5 top-1/2 -translate-y-1/2  shadow-md rounded-full p-2 hover:opacity-100 transition z-10  cursor-pointer"
     >
-      <ChevronLeft size={50} />
+      <ChevronLeft size={30} />
     </button>
   );
 };
@@ -37,7 +37,7 @@ const CustomRightArrow = ({ onClick }) => {
       onClick={onClick}
       className="absolute hidden sm:block right-5 top-1/2 -translate-y-1/2   shadow-md rounded-full p-2 hover:opacity-100 transition z-10  cursor-pointer"
     >
-      <ChevronRight size={50} />
+      <ChevronRight size={30} />
     </button>
   );
 };

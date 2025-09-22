@@ -30,7 +30,7 @@ const SaleSection = ({ products }) => {
         </div>
       </div>
       {/* Body */}
-      <div className="relative w-full bg-[#D3162A] rounded-4xl shadow-[inset_1px_1px_150px_white] p-2 sm:p-4 pt-0 mt-3 border-b-5 border-gray-400/60 ">
+      <div className="relative w-full min-h-[500px] bg-[#D3162A] rounded-4xl shadow-[inset_1px_1px_150px_white] p-2 sm:p-4 pt-0 mt-3 border-b-5 border-gray-400/60 ">
         <img
           className="w-12 sm:w-16 absolute top-0 -left-3 -rotate-45 "
           src="/gift-icon.webp"

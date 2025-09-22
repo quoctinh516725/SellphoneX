@@ -8,7 +8,7 @@ const ProductSection = ({ products, title, category, brands }) => {
     .slice(0, 5);
 
   return (
-    <div className="w-full sm:w-[1200px] mx-auto mt-10 px-4 sm:px-1">
+    <div className="w-full min-h-[300px] sm:w-[1200px] mx-auto mt-10 px-4 sm:px-1">
       <SectionTitle title={title} brands={brands} />
       <div className="w-full mt-4 ">
         <CarouselComponent

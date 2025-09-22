@@ -421,7 +421,9 @@ const Header = () => {
                         className="flex flex-col gap-3 cursor-pointer "
                         key={sub.id}
                       >
-                        <h5 className="text-sm font-bold  mb-2">{sub.label}</h5>
+                        <h5 className="text-sm  font-bold  mb-1">
+                          {sub.label}
+                        </h5>
                         {sub.options.map((item) => (
                           <span
                             className="text-sm text-gray-500 cursor-pointer hover:font-semibold"

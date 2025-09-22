@@ -5,7 +5,7 @@ import CardBlog from "../../../components/CardBlog";
 
 const BlogSection = ({ items, title }) => {
   return (
-    <div className="w-full sm:w-[1200px] mx-auto mt-5">
+    <div className="w-full min-h-[200px] sm:w-[1200px] mx-auto mt-5">
       <SectionTitle title={title} />
       <div className="w-full">
         <CarouselComponent

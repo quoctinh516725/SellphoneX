@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Breadcrumbs = ({ breadcrumbs }) => {
   return (
-    <div className=" p-4">
+    <div className="p-3 my-3">
       <div className="flex items-center gap-2">
         {breadcrumbs.map((item, idx) => (
           <Link

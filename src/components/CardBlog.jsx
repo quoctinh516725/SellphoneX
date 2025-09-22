@@ -6,20 +6,20 @@ import Reveal from "./Reveal";
 const CardBlog = ({ item, i }) => {
   return (
     <Reveal delay={(i % 6) * 0.04}>
-      <div className="shadow-xl">
-        <Link to={item.url}>
+      <Link to={item.url}>
+        <div className="shadow-xl">
           <ImageLazy
             src={item.banner}
             height={"h-[100px] sm:h-[120px]"}
             radius="rounded-t-xl rounded-b-0"
           />
-        </Link>
-        <div className="p-2">
-          <p className="w-full text-sm sm:text-[14px] font-semibold mt-1  min-h-[40px] line-clamp-2">
-            {item.name}
-          </p>
+          <div className="p-2">
+            <p className="w-full text-sm sm:text-[14px] font-semibold mt-1  min-h-[40px] line-clamp-2">
+              {item.name}
+            </p>
+          </div>
         </div>
-      </div>
+      </Link>
     </Reveal>
   );
 };

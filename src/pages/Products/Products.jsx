@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useFilter from "../../hooks/useFilter";
 import CardProduct from "../../components/CardProduct";
 import Loading from "../../components/Loading";
-import Breadcrumbs from "./sections/Breadcrumbs";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import Banner from "./sections/Banner";
 import BrandSection from "./sections/BrandSection";
 import { assets } from "../../assets";
