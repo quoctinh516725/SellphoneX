@@ -8,11 +8,11 @@ import Reveal from "../../../components/Reveal";
 
 const ProductDetailSection = ({ product }) => {
   return (
-    <div className="w-1/2 flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-5">
       {/* Tên sản phẩm */}
       <Reveal>
         <div className="flex flex-col gap-3 ">
-          <Title title="Iphone 14 Pro Max" />
+          <Title title={product.name} />
           <div className="flex items-center gap-1">
             <i className="fa-solid fa-star text-amber-300" />
             <span className="font-semibold">4.3</span>
@@ -40,7 +40,7 @@ const ProductDetailSection = ({ product }) => {
       </Reveal>
 
       {/* Hình ảnh sản phẩm */}
-      <ProductImages />
+      <ProductImages product={product} />
 
       {/* Cam kết sản phẩm */}
       <div>
@@ -87,8 +87,8 @@ const ProductDetailSection = ({ product }) => {
                 </svg>
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                1 ĐỔI 1 trong 30 ngày nếu có lỗi phần cứng nhà sản xuất. Bảo hành
-                12 tháng tại trung tâm bảo hành chính hãng Apple: CareS.vn
+                1 ĐỔI 1 trong 30 ngày nếu có lỗi phần cứng nhà sản xuất. Bảo
+                hành 12 tháng tại trung tâm bảo hành chính hãng Apple: CareS.vn
               </p>
             </div>{" "}
             <div>

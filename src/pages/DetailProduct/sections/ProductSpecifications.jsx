@@ -52,8 +52,8 @@ const ProductSpecifications = () => {
         <Title title="Thông số kỹ thuật" />
         <table className="mt-5 table-auto w-full border-collapse border border-gray-300">
           <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2 text-start">
+            <tr className="">
+              <th className="border  border-gray-300 px-4 py-2 bg-gray-100 text-start">
                 Thông số
               </th>
               <th className="border border-gray-300 px-4 py-2 text-start">
@@ -64,7 +64,7 @@ const ProductSpecifications = () => {
           <tbody>
             {specsMap.map((spec, idx) => (
               <tr key={idx}>
-                <td className="border text-gray-500 border-gray-300 px-4 py-2">
+                <td className="border text-gray-500 border-gray-300 bg-gray-100 px-4 py-2">
                   {spec.label}
                 </td>
                 <td className="border text-gray-500 border-gray-300 px-4 py-2">

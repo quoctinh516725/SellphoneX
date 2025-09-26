@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FormatPrice } from "../../../utils/FormatPrice";
 import Title from "../../Products/sections/Title";
-import Banner from "../../Products/sections/Banner";
 import { assets } from "../../../assets";
 import SwiperComponent from "../../../components/SwiperComponent";
 import SaleBox from "./SaleBox";
@@ -9,10 +8,25 @@ import ActionButton from "./ActionButton";
 import PaymentOffets from "./PaymentOffets";
 import FlashSale from "./FlashSale";
 import Reveal from "../../../components/Reveal";
+import OfferSection from "./OfferSection";
+import WarrantySection from "./WarrantySection";
 
 const ProductSumary = ({ product }) => {
   const [version, setVersion] = useState("");
   const [color, setColor] = useState("");
+  const [selected, setSelected] = useState({
+    version: "",
+    color: "",
+    warranty: "",
+  });
+  const handleSelect = (key, value) => {
+    if (selected[key] === value) {
+      setSelected({ ...selected, [key]: "" });
+    } else {
+      setSelected({ ...selected, [key]: value });
+    }
+  };
+
   const productData = {
     version: [256, 512],
     color: [
@@ -21,7 +35,7 @@ const ProductSumary = ({ product }) => {
     ],
   };
   return (
-    <div className="w-1/2 flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-5">
       {/* Giá sản phẩm */}
       {product.isSale ? (
         <FlashSale price={product.price} price_sale={product.price_sale} />
@@ -49,9 +63,9 @@ const ProductSumary = ({ product }) => {
             {productData.version.map((item, idx) => (
               <p
                 key={idx}
-                onClick={() => setVersion(item)}
+                onClick={() => handleSelect("version", item)}
                 className={`px-5 py-2 border border-2 border-gray-300 rounded-lg cursor-pointer font-semibold ${
-                  version === item ? "bg-primary text-white " : ""
+                  selected.version === item ? "border-primary text-primary " : ""
                 }`}
               >
                 {item} GB
@@ -70,9 +84,9 @@ const ProductSumary = ({ product }) => {
               <div
                 key={idx}
                 className={`flex items-center gap-2 border border-2 border-gray-300 px-4 py-2 rounded-xl cursor-pointer ${
-                  color === item.label ? "border-primary" : ""
+                  selected.color === item.label ? "border-primary text-primary" : ""
                 }`}
-                onClick={() => setColor(item.label)}
+                onClick={() => handleSelect("color", item.label)}
               >
                 <img className="w-8" src={item.img} alt="" />
                 <p className="font-semibold">{item.label}</p>
@@ -98,6 +112,17 @@ const ProductSumary = ({ product }) => {
 
       {/* Ưu đãi khuyết mãi */}
       <PaymentOffets />
+
+      {/* Bảo hành */}
+      <WarrantySection
+        product={product}
+        warrantySelect={selected.warranty}
+        handleSelect={handleSelect}
+      />
+
+      {/* Note chinh sua product */}
+      {/* Phụ kiện mua cùng */}
+      <OfferSection product={product} />
     </div>
   );
 };

@@ -1,15 +1,12 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Question from "../components/Question";
-const DefaultLayout = () => {
+const DefaultLayout = ({ children }) => {
   return (
     <div>
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      <main>{children}</main>
       <Question />
       <Footer />
     </div>

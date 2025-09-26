@@ -40,9 +40,9 @@ const FlashSale = ({ price, price_sale }) => {
           </div>
           <div className="text-sm sm:text-2xl font-bold text-white flex flex-col  items-center sm:items-end gap-2">
             <span className="text-xs sm:text-sm font-bold text-white mt-5">
-              BẮT ĐẦU SAU:
+              Bắt đầu sau:
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <p className="w-8 h-8 text-sm sm:text-xl flex items-center justify-center bg-white rounded-xl text-black">
                 01
               </p>
